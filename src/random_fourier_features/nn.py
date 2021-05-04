@@ -3,7 +3,7 @@ import torch.nn as nn
 
 from typing import Optional
 
-import random_fourier_features.functional as rF
+import .functional as rF
 
 
 class RandomFourierFeatures2d(nn.Module):
@@ -12,7 +12,7 @@ class RandomFourierFeatures2d(nn.Module):
             self.b = nn.parameter.Parameter(
                 rF.sample_b(sigma), requires_grad=False)
         else:
-            self.b = b
+            self.b = nn.parameter.Parameter(b, requires_grad=False)
 
     def forward(self, v):
         return rF.random_fourier_features_2d(v, self.b)

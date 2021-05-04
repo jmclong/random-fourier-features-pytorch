@@ -1,0 +1,8 @@
+name: rff-pytorch-dev
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python
+  - pytorch
+  - numpy
