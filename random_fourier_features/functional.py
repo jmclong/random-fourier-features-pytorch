@@ -4,8 +4,10 @@ import torch
 from torch import Tensor
 from torch.types import _size
 
+
 def sample_b(sigma: float, size: _size) -> Tensor:
     return torch.randn(size) * sigma
+
 
 @torch.jit.script
 def random_fourier_features_2d(
