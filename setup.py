@@ -6,6 +6,6 @@ setup(name='random-fourier-features-pytorch',
       author='Your Name',
       author_email='joshualong@live.com',
       license='BSD-3',
-      packages=['random_fourier_features'],
+      packages=['rff'],
       install_requires=["numpy>=1.17",
                         "torch>=1.0"])
