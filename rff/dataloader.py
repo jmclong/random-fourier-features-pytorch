@@ -10,7 +10,7 @@ def rectangular_coordinates(size: tuple) -> Tensor:
         size (tuple): shape of the image or volume
 
     Returns:
-        Tensor: tensor of shape :math:`(\text{minibatch}, \prod_i \text{size}_i)`
+        Tensor: tensor of shape :math:`( \prod_i \text{size}_i, \text{len(size)})`
     """
     def linspace_func(nx): return torch.linspace(0, 1, nx)
     linspaces = map(linspace_func, size)
