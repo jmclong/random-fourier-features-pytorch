@@ -11,25 +11,67 @@ def sample_b(sigma: float, size: tuple) -> Tensor:
         sigma (float): standard deviation
         size (tuple) size of the matrix sampled
 
-    See :class:`~rff.layers.RandomFourierFeatures2d` for more details
+    See :class:`~rff.layers.GaussianEncoding` for more details
     """
     return torch.randn(size) * sigma
 
 
 @torch.jit.script
-def random_fourier_features(
+def gaussian_encoding(
         v: Tensor,
         b: Tensor) -> Tensor:
     r"""Computes :math:`\gamma(\mathbf{v}) = (\cos{2 \pi \mathbf{B} \mathbf{v}} , \sin{2 \pi \mathbf{B} \mathbf{v}})`
 
     Args:
-        v (Tensor): input tensor of shape :math:`(\text{minibatch}, \text{input_size})`
+        v (Tensor): input tensor of shape :math:`(N, *, \text{input_size})`
         b (Tensor): projection matrix of shape :math:`(\text{encoded_layer_size}, \text{input_size})`
 
     Returns:
-        Tensor: mapped tensor of shape :math:`(\text{minibatch}, 2 \cdot \text{encoded_layer_size})`
+        Tensor: mapped tensor of shape :math:`(N, *, 2 \cdot \text{encoded_layer_size})`
 
-    See :class:`~rff.layers.RandomFourierFeatures2d` for more details.
+    See :class:`~rff.layers.GaussianEncoding` for more details.
     """
     vp = 2 * np.pi * v @ b.T
     return torch.cat((torch.cos(vp), torch.sin(vp)), dim=-1)
+
+
+@torch.jit.script
+def basic_encoding(
+        v: Tensor) -> Tensor:
+    r"""Computes :math:`\gamma(\mathbf{v}) = (\cos{2 \pi \mathbf{v}} , \sin{2 \pi \mathbf{v}})`
+
+    Args:
+        v (Tensor): input tensor of shape :math:`(N, *, \text{input_size})`
+
+    Returns:
+        Tensor: mapped tensor of shape :math:`(N, *, 2 \cdot \text{input_size})`
+
+    See :class:`~rff.layers.BasicEncoding` for more details.
+    """
+    vp = 2 * np.pi * v
+    return torch.cat((torch.cos(vp), torch.sin(vp)), dim=-1)
+
+
+@torch.jit.script
+def positional_encoding(
+        v: Tensor,
+        sigma: float,
+        m: float) -> Tensor:
+    r"""`\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)`
+    where :math:`j \in \{0, \dots, m-1\}`
+
+    Args:
+        v (Tensor): input tensor of shape :math:`(N, *, \text{input_size})`
+        sigma (float): constant chosen based upon the domain of :attr:`v`
+        m (float): [description]
+
+    Returns:
+        Tensor: mapped tensor of shape :math:`(N, *, 2 \cdot m \cdot \text{input_size})`
+
+    See :class:`~rff.layers.PositionalEncoding` for more details.
+    """
+    j = torch.arange(m)
+    coeffs = 2 * np.pi * sigma ** (j / m)
+    vp = coeffs * v[..., np.newaxis]
+    vp_cat = torch.cat((torch.cos(vp), torch.sin(vp)), dim=-1)
+    return vp_cat.flatten(-2, -1)

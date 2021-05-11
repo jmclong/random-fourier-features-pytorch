@@ -17,7 +17,8 @@ def rectangular_coordinates(size: tuple) -> Tensor:
     def linspace_func(nx): return torch.linspace(0.0, 1.0, nx)
     linspaces = map(linspace_func, size)
     coordinates = torch.meshgrid(*linspaces)
-    return torch.stack(coordinates, axis=-1)
+    return torch.stack(coordinates, dim=-1)
+
 
 def to_dataset(path: str) -> TensorDataset:
     image = torchvision.io.read_image(path).float()

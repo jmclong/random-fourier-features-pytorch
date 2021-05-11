@@ -5,7 +5,7 @@ from torch import Tensor
 import rff
 
 
-class RandomFourierFeatures(nn.Module):
+class GaussianEncoding(nn.Module):
     """Layer for mapping coordinates using random Fourier features"""
 
     def __init__(self, sigma: Optional[float] = None,
@@ -19,9 +19,17 @@ class RandomFourierFeatures(nn.Module):
             input_size (Optional[float]): the number of input dimensions
             encoded_size (Optional[float]): the number of dimensions the `b` matrix maps to
             b (Optional[Tensor], optional): Optionally specify a :attr:`b` matrix already sampled
+        Raises:
+            ValueError: If :attr:`b` is provided and one of :attr:`sigma`, :attr:`input_size`,
+                or :attr:`encoded_size` is provided. If :attr:`b` is not provided and one of
+                :attr:`sigma`, :attr:`input_size`, or :attr:`encoded_size is not provided.
         """
         super().__init__()
         if b is None:
+            if sigma is None or input_size is None or encoded_size is None:
+                raise ValueError(
+                    'Arguments "sigma," "input_size," and "encoded_size" are required.')
+
             b = rff.functional.sample_b(sigma, (encoded_size, input_size))
         elif sigma is not None or input_size is not None or encoded_size is not None:
             raise ValueError('Only specify the "b" argument when using it.')
@@ -36,4 +44,43 @@ class RandomFourierFeatures(nn.Module):
         Returns:
             Tensor: Tensor mapping using random fourier features of shape :math:`(\text{minibatch}, \text{2 \cdot encoded_size})`
         """
-        return rff.functional.random_fourier_features(v, self.b)
+        return rff.functional.gaussian_encoding(v, self.b)
+
+
+class BasicEncoding(nn.Module):
+    """Layer for mapping coordinates using the basic encoding"""
+
+    def forward(self, v: Tensor) -> Tensor:
+        r"""Computes :math:`\gamma(\mathbf{v}) = (\cos{2 \pi \mathbf{v}} , \sin{2 \pi \mathbf{v}})`
+
+        Args:
+            v (Tensor): input tensor of shape :math:`(N, *, \text{input_size})`
+
+        Returns:
+            Tensor: mapped tensor of shape :math:`(N, *, 2 \cdot \text{input_size})`
+        """
+        return rff.functional.basic_encoding(v)
+
+
+class PositionalEncoding(nn.Module):
+    """Layer for mapping coordinates using the positional encoding"""
+
+    def __init__(self, sigma: float, m: float):
+        r"""Computes `\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)`
+
+        Args:
+            sigma (float): frequency constant
+            m (float): number of frequencies to map to
+        """
+        self.sigma = sigma
+        self.m = m
+
+    def forward(self, v: Tensor) -> Tensor:
+        r"""Maps :attr:`v` using the positional encoding
+        Args:
+            v (Tensor): input tensor of shape :math:`(N, *, \text{input_size})`
+
+        Returns:
+            Tensor: mapped tensor of shape :math:`(N, *, 2 \cdot m \cdot \text{input_size})`
+        """
+        return rff.functional.positional_encoding(v, self.sigma, self.m)
