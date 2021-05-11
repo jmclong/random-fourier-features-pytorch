@@ -1,3 +1,2 @@
 # random-fourier-features-pytorch
-
-In development
+[![Python package](https://github.com/jmclong/random-fourier-features-pytorch/actions/workflows/python-package.yml/badge.svg)](https://github.com/jmclong/random-fourier-features-pytorch/actions/workflows/python-package.yml)
