@@ -12,8 +12,7 @@ class GaussianEncoding(nn.Module):
                  input_size: Optional[float] = None,
                  encoded_size: Optional[float] = None,
                  b: Optional[Tensor] = None):
-        r"""Computes :math:`\gamma(\mathbf{v}) = (\cos{2 \pi \mathbf{B} \mathbf{v}} , \sin{2 \pi \mathbf{B} \mathbf{v}})`
-
+        r"""
         Args:
             sigma (Optional[float]): standard deviation
             input_size (Optional[float]): the number of input dimensions
@@ -36,13 +35,13 @@ class GaussianEncoding(nn.Module):
         self.b = nn.parameter.Parameter(b, requires_grad=False)
 
     def forward(self, v: Tensor) -> Tensor:
-        r"""Maps regular coordinates using random Fourier features
+        r"""Computes :math:`\gamma(\mathbf{v}) = (\cos{2 \pi \mathbf{B} \mathbf{v}} , \sin{2 \pi \mathbf{B} \mathbf{v}})`
 
         Args:
-            v (Tensor): Tensor of regular coordinates of size :math:`(\text{minibatch}, \text{input_size})`
+            v (Tensor): input tensor of shape :math:`(N, *, \text{input_size})`
 
         Returns:
-            Tensor: Tensor mapping using random fourier features of shape :math:`(\text{minibatch}, \text{2 \cdot encoded_size})`
+            Tensor: Tensor mapping using random fourier features of shape :math:`(N, *, 2 \cdot \text{encoded_size})`
         """
         return rff.functional.gaussian_encoding(v, self.b)
 
@@ -66,8 +65,7 @@ class PositionalEncoding(nn.Module):
     """Layer for mapping coordinates using the positional encoding"""
 
     def __init__(self, sigma: float, m: int):
-        r"""Computes `\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)`
-
+        r"""
         Args:
             sigma (float): frequency constant
             m (int): number of frequencies to map to
@@ -77,7 +75,8 @@ class PositionalEncoding(nn.Module):
         self.m = m
 
     def forward(self, v: Tensor) -> Tensor:
-        r"""Maps :attr:`v` using the positional encoding
+        r"""Computes :math:`\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)`
+
         Args:
             v (Tensor): input tensor of shape :math:`(N, *, \text{input_size})`
 

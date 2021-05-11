@@ -57,8 +57,8 @@ def positional_encoding(
         v: Tensor,
         sigma: float,
         m: int) -> Tensor:
-    r"""`\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)`
-    where :math:`j \in \{0, \dots, m-1\}`
+    r"""`\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)` 
+        where :math:`j \in \{0, \dots, m-1\}`
 
     Args:
         v (Tensor): input tensor of shape :math:`(N, *, \text{input_size})`
