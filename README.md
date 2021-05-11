@@ -14,6 +14,7 @@ pip install random-fourier-features-pytorch
 ```
 
 ## Usage
+See the [documentation](https://random-fourier-features-pytorch.readthedocs.io/en/latest/) for more details, but here are a few simple usage examples:
 ### Gaussian Encoding
 ```python
 import torch
