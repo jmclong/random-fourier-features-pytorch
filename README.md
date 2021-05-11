@@ -13,16 +13,33 @@ pip install random-fourier-features-pytorch
 ```
 
 ## Usage
-
+### Gaussian Encoding
 ```python
 import torch
-import rff.layers
+import rff
 
 X = torch.randn((256, 256, 2))
 encoding = rff.layers.GaussianEncoding(sigma=10.0, input_size=2, encoded_size=256)
 Xp = encoding(X)
 ```
+### Basic Encoding
+```python
+import torch
+import rff
 
+X = torch.randn((256, 256, 2))
+encoding = rff.layers.BasicEncoding()
+Xp = encoding(X)
+```
+### Positional Encoding
+```python
+import torch
+import rff
+
+X = torch.randn((256, 256, 2))
+encoding = rff.layers.PositionalEncoding(sigma=1, m=10)
+Xp = encoding(X)
+```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
