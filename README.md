@@ -37,7 +37,7 @@ import torch
 import rff
 
 X = torch.randn((256, 256, 2))
-encoding = rff.layers.PositionalEncoding(sigma=1, m=10)
+encoding = rff.layers.PositionalEncoding(sigma=1.0, m=10)
 Xp = encoding(X)
 ```
 ## Contributing
