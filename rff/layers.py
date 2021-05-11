@@ -65,13 +65,14 @@ class BasicEncoding(nn.Module):
 class PositionalEncoding(nn.Module):
     """Layer for mapping coordinates using the positional encoding"""
 
-    def __init__(self, sigma: float, m: float):
+    def __init__(self, sigma: float, m: int):
         r"""Computes `\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)`
 
         Args:
             sigma (float): frequency constant
-            m (float): number of frequencies to map to
+            m (int): number of frequencies to map to
         """
+        super().__init__()
         self.sigma = sigma
         self.m = m
 

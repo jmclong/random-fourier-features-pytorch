@@ -56,14 +56,14 @@ def basic_encoding(
 def positional_encoding(
         v: Tensor,
         sigma: float,
-        m: float) -> Tensor:
+        m: int) -> Tensor:
     r"""`\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)`
     where :math:`j \in \{0, \dots, m-1\}`
 
     Args:
         v (Tensor): input tensor of shape :math:`(N, *, \text{input_size})`
         sigma (float): constant chosen based upon the domain of :attr:`v`
-        m (float): [description]
+        m (int): [description]
 
     Returns:
         Tensor: mapped tensor of shape :math:`(N, *, 2 \cdot m \cdot \text{input_size})`
