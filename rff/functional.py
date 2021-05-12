@@ -3,7 +3,6 @@ import torch
 
 from torch import Tensor
 
-
 def sample_b(sigma: float, size: tuple) -> Tensor:
     r"""Matrix of size :attr:`size` sampled from from :math:`\mathcal{N}(0, \sigma^2)`
 

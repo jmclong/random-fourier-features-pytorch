@@ -19,9 +19,10 @@ class GaussianEncoding(nn.Module):
             encoded_size (Optional[float]): the number of dimensions the `b` matrix maps to
             b (Optional[Tensor], optional): Optionally specify a :attr:`b` matrix already sampled
         Raises:
-            ValueError: If :attr:`b` is provided and one of :attr:`sigma`, :attr:`input_size`,
+            ValueError:
+                If :attr:`b` is provided and one of :attr:`sigma`, :attr:`input_size`,
                 or :attr:`encoded_size` is provided. If :attr:`b` is not provided and one of
-                :attr:`sigma`, :attr:`input_size`, or :attr:`encoded_size is not provided.
+                :attr:`sigma`, :attr:`input_size`, or :attr:`encoded_size` is not provided.
         """
         super().__init__()
         if b is None:
