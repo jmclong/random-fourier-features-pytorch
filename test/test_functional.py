@@ -36,6 +36,7 @@ class FunctionalTest(unittest.TestCase):
         self.assertEqual(gamma_v.shape, (2, 2, 4))
         xc = np.cos(2 * np.pi * v)
         yc = np.sin(2 * np.pi * v)
-        gamma_v_expected = np.concatenate((xc[..., np.newaxis], yc[..., np.newaxis]), axis=-1)
+        gamma_v_expected = np.concatenate(
+            (xc[..., np.newaxis], yc[..., np.newaxis]), axis=-1)
         gamma_v_expected = np.reshape(gamma_v_expected, (2, 2, 4))
         np.testing.assert_almost_equal(gamma_v, gamma_v_expected, decimal=5)

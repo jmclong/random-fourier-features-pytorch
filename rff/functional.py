@@ -3,6 +3,7 @@ import torch
 
 from torch import Tensor
 
+
 def sample_b(sigma: float, size: tuple) -> Tensor:
     r"""Matrix of size :attr:`size` sampled from from :math:`\mathcal{N}(0, \sigma^2)`
 
@@ -56,7 +57,7 @@ def positional_encoding(
         v: Tensor,
         sigma: float,
         m: int) -> Tensor:
-    r"""`\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)` 
+    r"""`\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)`
         where :math:`j \in \{0, \dots, m-1\}`
 
     Args:
