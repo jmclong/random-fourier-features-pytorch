@@ -72,6 +72,6 @@ def positional_encoding(
     """
     j = torch.arange(m)
     coeffs = 2 * np.pi * sigma ** (j / m)
-    vp = coeffs * v[..., np.newaxis]
+    vp = coeffs * torch.unsqueeze(v, -1)
     vp_cat = torch.cat((torch.cos(vp), torch.sin(vp)), dim=-1)
     return vp_cat.flatten(-2, -1)
