@@ -18,8 +18,8 @@ jobs:
       - name: Build a source tarball and a binary wheel
         # https://pypa-build.readthedocs.io
         run: |
-          python -m pip install build
-          python -m build --sdist --wheel
+          python -m pip install build --user
+          python -m build --sdist --wheel --outdir dist/
       - name: Publish 📦 to PyPI
         # https://github.com/pypa/gh-action-pypi-publish
         uses: pypa/gh-action-pypi-publish@release/v1
