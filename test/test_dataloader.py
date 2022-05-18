@@ -17,4 +17,4 @@ class DataloaderTest(unittest.TestCase):
         np.testing.assert_equal(coords, expected_coords)
 
     def test_to_dataset(self):
-        dataset = rff.dataloader.to_dataset('images/cat.jpg')
+        _ = rff.dataloader.to_dataset('images/cat.jpg')

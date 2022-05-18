@@ -1,4 +1,3 @@
-from types import new_class
 import numpy as np
 import torch
 import unittest
