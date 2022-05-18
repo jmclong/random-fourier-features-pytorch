@@ -18,11 +18,11 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Random Fourier Features PyTorch'
-copyright = '2021, Joshua Mark Coley Long'
+copyright = '2021-2022, Joshua Mark Coley Long'
 author = 'Joshua Mark Coley Long'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '0.2'
 
 
 # -- General configuration ---------------------------------------------------
