@@ -9,7 +9,7 @@ def sample_b(sigma: float, size: tuple) -> Tensor:
 
     Args:
         sigma (float): standard deviation
-        size (tuple) size of the matrix sampled
+        size (tuple): size of the matrix sampled
 
     See :class:`~rff.layers.GaussianEncoding` for more details
     """
