@@ -70,7 +70,7 @@ def positional_encoding(
 
     See :class:`~rff.layers.PositionalEncoding` for more details.
     """
-    j = torch.arange(m)
+    j = torch.arange(m, device=v.device)
     coeffs = 2 * np.pi * sigma ** (j / m)
     vp = coeffs * torch.unsqueeze(v, -1)
     vp_cat = torch.cat((torch.cos(vp), torch.sin(vp)), dim=-1)
