@@ -1,6 +1,7 @@
 # Random Fourier Features Pytorch
 
 [![Python package](https://github.com/jmclong/random-fourier-features-pytorch/actions/workflows/python-package.yml/badge.svg)](https://github.com/jmclong/random-fourier-features-pytorch/actions/workflows/python-package.yml)
+[![Coverage Status](https://coveralls.io/repos/github/jmclong/random-fourier-features-pytorch/badge.svg)](https://coveralls.io/github/jmclong/random-fourier-features-pytorch)
 [![Documentation Status](https://readthedocs.org/projects/random-fourier-features-pytorch/badge/?version=latest)](https://random-fourier-features-pytorch.readthedocs.io/en/latest/?badge=latest)
 
 Random Fourier Features Pytorch is an implementation of "Fourier Features Let Networks Learn High Frequency Functions in Low Dimensional Domains" by Tancik et al. designed to fit seamlessly into any PyTorch project.
