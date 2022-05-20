@@ -43,7 +43,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
         COVERALLS_PARALLEL: true
-           COVERALLS_PARALLEL: true
   coveralls:
     name: Indicate completion to coveralls.io
     needs: build
