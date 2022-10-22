@@ -33,7 +33,7 @@ class GaussianEncoding(nn.Module):
             b = rff.functional.sample_b(sigma, (encoded_size, input_size))
         elif sigma is not None or input_size is not None or encoded_size is not None:
             raise ValueError('Only specify the "b" argument when using it.')
-        self.b = nn.parameter.Parameter(b, requires_grad=False)
+        self.register_buffer('b', b)
 
     def forward(self, v: Tensor) -> Tensor:
         r"""Computes :math:`\gamma(\mathbf{v}) = (\cos{2 \pi \mathbf{B} \mathbf{v}} , \sin{2 \pi \mathbf{B} \mathbf{v}})`
