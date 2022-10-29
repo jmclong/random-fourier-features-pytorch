@@ -16,7 +16,7 @@ def rectangular_coordinates(size: tuple) -> Tensor:
     """
     def linspace_func(nx): return torch.linspace(0.0, 1.0, nx)
     linspaces = map(linspace_func, size)
-    coordinates = torch.meshgrid(*linspaces)
+    coordinates = torch.meshgrid(*linspaces, indexing='ij')
     return torch.stack(coordinates, dim=-1)
 
 

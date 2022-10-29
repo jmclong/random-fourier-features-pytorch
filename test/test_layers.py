@@ -30,6 +30,15 @@ def test_gaussian_encoding(device):
 
 
 @pytest.mark.parametrize('device', ['cpu', 'cuda'])
+def test_gaussian_encoding_no_unfreeze(device):
+    check_cuda(device)
+    b = rff.functional.sample_b(1.0, (256, 2)).to(device)
+    layer = rff.layers.GaussianEncoding(b=b).to(device)
+    layer.requires_grad = True
+    assert layer.b.requires_grad != True
+
+
+@pytest.mark.parametrize('device', ['cpu', 'cuda'])
 def test_gaussian_encoding_register_buffer(device):
     check_cuda(device)
     b = rff.functional.sample_b(1.0, (256, 2)).to(device)

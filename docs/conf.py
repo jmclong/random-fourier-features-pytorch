@@ -22,7 +22,7 @@ copyright = '2021-2022, Joshua Mark Coley Long'
 author = 'Joshua Mark Coley Long'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0.0'
+release = '1.0.1'
 
 
 # -- General configuration ---------------------------------------------------
